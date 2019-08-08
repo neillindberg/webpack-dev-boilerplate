@@ -45,7 +45,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Output Management"
+            title: "Xin Ya's Memory Game"
         }),
         new HtmlWebpackRootPlugin(),
         new CleanWebpackPlugin()

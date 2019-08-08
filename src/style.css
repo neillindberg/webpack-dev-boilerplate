@@ -8,8 +8,27 @@
        url('./fonts/princess-sofia-v8-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+/* alegreya-sans-regular - latin */
+@font-face {
+  font-family: 'Alegreya Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Alegreya Sans Regular'), local('AlegreyaSans-Regular'),
+       url('./fonts/alegreya-sans-v10-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('./fonts/alegreya-sans-v10-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* alegreya-sans-900 - latin */
+@font-face {
+  font-family: 'Alegreya Sans';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Alegreya Sans Black'), local('AlegreyaSans-Black'),
+       url('./fonts/alegreya-sans-v10-latin-900.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('./fonts/alegreya-sans-v10-latin-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 body, * {
-    background: rgb(177, 21, 47);
+    background: rgb(0,0,0);
     padding: 0;
     margin: 0;
 }
@@ -26,4 +45,48 @@ body, * {
     letter-spacing: .1em;
     color: white;
     font-size: 5em;
+    user-select: none;
+    text-shadow: -1px 0 hotpink, 0 3px hotpink, 1px 0 hotpink, 0 -5px black;
+}
+
+.game {
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+}
+
+.card {
+    height: 150px;
+    width: 150px;
+    margin: .5em;
+    border-radius: 1.5em;
+    text-align: center;
+    border: 2px solid #ccc;
+}
+
+.face {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.face p {
+    font-family: 'Alegreya Sans';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 2em;
+    color: white;
+    background: none;
+    letter-spacing: .05em;
+    -webkit-text-stroke: .025em black;
+    user-select: none;
+}
+
+.back {
+    background: #888;
+}
+
+.found {
+    background: #000;
 }

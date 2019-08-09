@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import './style.css';
+import './styles/style.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './Game';
-
+import Game from './jsx/Game';
 
 const shuffle = (deck) => {
     let numCards = deck.length;

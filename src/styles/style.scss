@@ -1,6 +1,10 @@
+$color-sassy: #999;
+$cover-font: 'Princess Sofia';
+$card-font: 'Alegreya Sans';
+
 /* princess-sofia-regular - latin */
 @font-face {
-  font-family: 'Princess Sofia';
+  font-family: $cover-font;
   font-style: normal;
   font-weight: 400;
   src: local('Princess Sofia'), local('PrincessSofia'),
@@ -10,7 +14,7 @@
 
 /* alegreya-sans-regular - latin */
 @font-face {
-  font-family: 'Alegreya Sans';
+  font-family: $card-font;
   font-style: normal;
   font-weight: 400;
   src: local('Alegreya Sans Regular'), local('AlegreyaSans-Regular'),
@@ -19,7 +23,7 @@
 }
 /* alegreya-sans-900 - latin */
 @font-face {
-  font-family: 'Alegreya Sans';
+  font-family: $card-font;
   font-style: normal;
   font-weight: 900;
   src: local('Alegreya Sans Black'), local('AlegreyaSans-Black'),
@@ -28,7 +32,7 @@
 }
 
 body, * {
-    background: rgb(0,0,0);
+    background: $color-sassy;
     padding: 0;
     margin: 0;
 }
@@ -40,8 +44,9 @@ body, * {
     height: 100vh;
 }
 
+
 .cover {
-    font-family: 'Princess Sofia';
+    font-family: $cover-font;
     letter-spacing: .1em;
     color: white;
     font-size: 5em;
@@ -72,7 +77,7 @@ body, * {
 }
 
 .face p {
-    font-family: 'Alegreya Sans';
+    font-family: $card-font;
     font-style: normal;
     font-weight: 900;
     font-size: 2em;

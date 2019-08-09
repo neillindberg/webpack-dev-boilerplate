@@ -7,8 +7,6 @@ export default class MemCard extends React.Component {
     }
 
     onClick = () => {
-        // this.toggleShowFace();
-        console.log("MEMCARD PASSING DOWN PROPS: ", this.props.id);
         this.props.onClick(this.props.id);
     }
 

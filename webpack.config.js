@@ -21,7 +21,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                loader: 'less-loader', // compiles Less to CSS
+                loader: 'less-loader',
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,

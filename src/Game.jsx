@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MemCard from './MemCard';
 
 export default class Game extends React.Component {
@@ -12,23 +13,19 @@ export default class Game extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Game - componentDidMount");
         this.setState({ deck: this.props.deck });
     }
 
     startGame() {
-        console.log("******** START GAME **********");
         if (!this.state.gameOn) {
             this.setState({ showCover: !this.state.showCover, gameOn: true });
         }
     }
 
     markFlip = (idString) => {
-        // TODO: Flip doesn't happen on non-matching 2nd choice. We want to show the user the 2nd and then flip both back over.
         const { lastCardClicked, selectedGroup, deck } = this.state;
         const card = deck.find(x => x.id === idString);
-        // console.log('markFlip ENTER: ', deck, " ID STRING: ", idString, " last? ", lastCardClicked, selectedGroup);
-        // console.log('should be a single card: ', card);
+
         // fresh flip, set card and group (show face)
         if (!lastCardClicked && !selectedGroup) {
             console.log('fresh flip, set card and group (show face) - showFace true');
@@ -85,7 +82,6 @@ export default class Game extends React.Component {
                         <div
                             className='game'
                         >
-                            {console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>> GAME RERENDER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')}
                             {this.state.deck.map((cardData, mapIndex) => {
                                 const idKey = 'card_' + mapIndex;
                                 cardData.id = idKey;
@@ -98,3 +94,8 @@ export default class Game extends React.Component {
             </div>);
     }
 }
+
+
+Game.propTypes = {
+    deck: PropTypes.array
+};

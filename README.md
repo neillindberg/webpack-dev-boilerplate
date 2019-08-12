@@ -7,7 +7,7 @@ There is a small project that will be separated after forking this into its own 
 
 But, anyway, I'd tried several packages and they seemed to have too complex a fs for my initial needs, and maybe just too developed to understand everything that was going on with transpiling settings and such.
 
-In the end, this is a lightweight, ready to run, hot-reloading, good kick-off point for a nice dev experience on new React projects.
+In the end, this is a lightweight, ready to run, hot-reloading, good kick-off point (functional, not too tied down) for a nice dev experience on new React projects.
 
 - compiles to ./dist/ (git ignored)
 - run a build for active development on *localhost:3000* with: `npm run start`

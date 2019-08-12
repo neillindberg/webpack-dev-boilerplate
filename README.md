@@ -1,5 +1,5 @@
 # webpack-dev-boilerplate
-Boilerplate - NodeJS/Webpack: React, LESS-CSS, Hot Reloading (and simple dir structure).
+Boilerplate - NodeJS/Webpack: React, SASS-CSS, Hot Reloading (and simple dir structure).
 
 As of August 2019 this is a boilerplate using all the newest webpack and babel loaders for the listed tech.
 This supports: React with ES6 and arrow functions within components.
@@ -12,9 +12,6 @@ In the end, this is a lightweight, ready to run, hot-reloading, good kick-off po
 - compiles to ./dist/ (git ignored)
 - run a build for active development on *localhost:3000* with: `npm run start`
 - see package.json scripts for all available options
-
-Next definite boilerplate plans:
-    - .eslintrc
 
 Maybe?
     - jest... or mocha... or maybe just lint and move on? (too much?)

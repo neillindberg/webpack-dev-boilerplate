@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import MemCard from './MemCard';
+// TODO: Think about a separate audio component with a SRC prop switch?
+import lestPlaySrc from '../sounds/xinya_lets_play.m4a';
+import wowsSrc from '../sounds/xinya_wow.m4a';
+import utOhSrc from '../sounds/xinya_ut_oh.m4a';
+
+// React supports several HTML5 <audio> props - onEnded, autoPlay, etc.
+const sounds = [
+    {
+        id: 'intro',
+        src: lestPlaySrc,
+        autoPlay: true
+    },
+    {
+        id: 'nomatch',
+        src: utOhSrc
+    },
+    {
+        id: 'match',
+        src: wowsSrc
+    }
+];
+
 
 export default class Game extends React.Component {
     constructor(props) {
         super(props);
+        this.secondFlip = false;
         this.state = {
             showCover: true,
             selectedGroup: null,
-            deck: []
-        }
+            deck: [],
+            foundCount: 0
+        };
     }
 
     componentDidMount() {
@@ -18,80 +43,94 @@ export default class Game extends React.Component {
 
     startGame() {
         if (!this.state.gameOn) {
-            this.setState({ showCover: !this.state.showCover, gameOn: true });
+            // document.getElementById('intro').play();
+            this.setState({ showCover: false, gameOn: true });
         }
     }
 
     markFlip = (idString) => {
+        if (this.secondFlip) return;
         const { lastCardClicked, selectedGroup, deck } = this.state;
         const card = deck.find(x => x.id === idString);
 
-        // fresh flip, set card and group (show face)
+        // FIRST: fresh flip, set card and group (show face)
         if (!lastCardClicked && !selectedGroup) {
-            console.log('fresh flip, set card and group (show face) - showFace true');
             card.showFace = true;
             this.setState({ selectedGroup: card.group, lastCardClicked: card.id, deck: deck });
             return;
         }
-        // second click on same first card in series, same card, flip back over and reset
+        // DUPLICATE: second click on same first card in series, same card, flip back over and reset
         if (card.id === this.state.lastCardClicked) {
-            console.log('second click in series, same card, flip back over and reset - showFace false');
             card.showFace = false;
             this.setState({ selectedGroup: null, lastCardClicked: null, deck });
             return;
         }
-        //
-        // The following two scenarios need to cause a flip first, THEN indicate match/no-match (disappear or flip back over)
-        //
-        // second flip, diffrent index than first, NOT same group = NO MATCH = reset (flip all non-found back over)
+        // NOMATCH: second flip, diffrent index than first, NOT same group = NO MATCH = reset (flip all non-found back over)
         if (card.id !== lastCardClicked && card.group !== selectedGroup) {
-            console.log('second flip, different index than first, NOT same group = NO MATCH = reset (flip all non-found back over)');
+            document.getElementById('nomatch').play();
+            this.secondFlip = true;
             const lastCard = deck.find(x => x.id === lastCardClicked);
             card.showFace = true;
             this.setState({ deck });
             setTimeout(() => {
+                this.secondFlip = false;
                 card.showFace = false;
                 lastCard.showFace = false;
                 this.setState({ selectedGroup: null, lastCardClicked: null, deck });
             }, 1000);
             return;
         }
-        // second flip, different index than first, same group = match found (dead card spots)
+        // MATCH: second flip, different index than first, same group = match found (dead card spots)
         if (card.id !== lastCardClicked && card.group === selectedGroup) {
-            console.log('second flip, different index than first, same group = match found (dead card spots)');
+            document.getElementById('match').play();
+            this.secondFlip = true;
             const lastCard = deck.find(x => x.id === lastCardClicked);
             card.showFace = true;
             this.setState({ deck });
             setTimeout(() => {
+                this.secondFlip = false;
                 card.found = true;
                 lastCard.found = true;
-                this.setState({ selectedGroup: null, lastCardClicked: null, deck });
-            }, 1000);
+                this.setState({ selectedGroup: null, lastCardClicked: null, deck, foundCount: this.state.foundCount + 1 }, this.checkForWin);
+            }, 500);
             return;
         }
     }
 
+    checkForWin = () => {
+        // TODO: Introduce shuffle, etc., and use that and add some sort of "YOU WON!" animation.
+        if (this.props.deck.length / 2 === this.state.foundCount) {
+            const deck = this.props.shuffle(this.props.deck.map(card => _.pick(card, ['value', 'group'])));
+            this.setState({gameOn: false, showCover: true, foundCount: 0, deck});
+        }
+    }
+
     render() {
+        const {showCover, deck, gameOn} = this.state;
         return (
-            <div onClick={() => this.state.gameOn || this.startGame()}>
-                {
-                    this.state.showCover ?
-                        <div
-                            className='cover'
-                        >Xin Ya's Memory Game</div> :
-                        <div
-                            className='game'
-                        >
-                            {this.state.deck.map((cardData, mapIndex) => {
-                                const idKey = 'card_' + mapIndex;
-                                cardData.id = idKey;
+            <Fragment>
+                {sounds.map((sound, index) => <audio {...sound} key={'audio_' + index} />)}
+                <div onClick={() => gameOn || this.startGame()}>
+                    {
+                        showCover ?
+                            <div
+                                className='cover'
+                            >Xin Ya&rsquo;s Memory Game</div> :
+                            <div
+                                className='game'
+                            >
+                                {deck.map((cardData, mapIndex) => {
+                                    const idKey = 'card_' + mapIndex;
+                                    cardData.id = idKey;
                                     return <MemCard {...cardData}
-                                    onClick={this.markFlip}
-                                    id={idKey}
-                                    key={idKey} />})}
-                        </div>
-                }
-            </div>);
+                                        onClick={this.markFlip}
+                                        id={idKey}
+                                        key={idKey} />
+                                })}
+                            </div>
+                    }
+                </div>
+            </Fragment>);
     }
 }
 

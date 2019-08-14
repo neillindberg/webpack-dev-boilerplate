@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class MemCard extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
     }
 
@@ -11,7 +11,7 @@ export default class MemCard extends React.Component {
     }
 
 
-    render() {
+    render () {
         return (<div id={this.props.id}>
             {this.props.found ? <div className={'card found'}></div> :
                 this.props.showFace ?
@@ -36,5 +36,6 @@ MemCard.propTypes = {
     value: PropTypes.string.isRequired,
     showFace: PropTypes.bool,
     group: PropTypes.number,
-    id: PropTypes.string
+    id: PropTypes.string,
+    onClick: PropTypes.func
 };

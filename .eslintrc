@@ -1,7 +1,6 @@
 {
         "root": true,
         "extends": [
-                "eslint:all",
                 "plugin:react/recommended"
         ],
         "parserOptions": {
@@ -11,6 +10,7 @@
                         "jsx": true
                 }
         },
+        "parser": "babel-eslint",
         "rules": {
                 "semi": "error",
                 "quotes": [
@@ -31,6 +31,7 @@
                 ],
                 "sort-imports": "off",
                 "linebreak-style": "off",
-                "prefer-named-capture-group": "off"
+                "prefer-named-capture-group": "off",
+                "id-length": 0
         }
 }

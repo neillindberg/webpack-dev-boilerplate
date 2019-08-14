@@ -27,16 +27,16 @@ const shuffle = (deck) => {
         'blue',
         'green',
         'purple',
-        'magenta',
-        'teal'
+        'teal',
+        'pink'
     ].map((color, group) => ({'value': color,
         group})),
     // Const duplicateSet = [...baseSet, ...baseSet]; // Leaves reference!!! And, you thought you were smooth!
     duplicateSet = _.cloneDeep(baseSet).concat(_.cloneDeep(baseSet)),
-    // Add index
     shuffled = shuffle(duplicateSet.splice(0));
 
+
 ReactDOM.render(
-    <Game deck={shuffled} />,
+    <Game deck={shuffled} shuffle={shuffle} />,
     document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-$color-sassy: #999;
+$color-sassy: #000;
 $cover-font: 'Princess Sofia';
 $card-font: 'Alegreya Sans';
 
@@ -66,7 +66,10 @@ body, * {
     margin: .5em;
     border-radius: 1.5em;
     text-align: center;
-    border: 2px solid #ccc;
+    border: 2px solid #ff990050;
+    &:hover {
+        border: 2px solid #999;
+    }
 }
 
 .face {
@@ -74,6 +77,10 @@ body, * {
     align-items: center;
     text-align: center;
     justify-content: center;
+    border: 2px solid #ffffff05;
+    &:hover {
+        border: 2px solid #00000000;
+    }
 }
 
 .face p {
@@ -89,9 +96,20 @@ body, * {
 }
 
 .back {
-    background: #888;
+    background: #999;
+    &:hover {
+        border-color: #fff;
+    }
 }
 
 .found {
-    background: #000;
+    background: none;
+    border-color: transparent;
+    &:hover {
+        border: 2px $color-sassy;
+    }
+}
+
+.try-again {
+    color: white;
 }

@@ -10,7 +10,7 @@ But, anyway, I'd tried several packages and they seemed to have too complex a fs
 In the end, this is a lightweight, ready to run, hot-reloading, good kick-off point (functional, not too tied down) for a nice dev experience on new React projects.
 
 - compiles to ./dist/ (git ignored)
-- run a build for active development on *localhost:3000* with: `npm run start`
+- run a build for active development on *localhost:8080* with: `npm run start`
 - see package.json scripts for all available options
 
 Maybe?

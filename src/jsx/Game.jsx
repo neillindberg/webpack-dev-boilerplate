@@ -2,31 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import MemCard from './MemCard';
-// TODO: Think about a separate audio component with a SRC prop switch?
-import lestPlaySrc from '../sounds/xinya_lets_play.m4a';
-import wowsSrc from '../sounds/xinya_wow.m4a';
-import utOhSrc from '../sounds/xinya_ut_oh.m4a';
-
-// React supports several HTML5 <audio> props - onEnded, autoPlay, etc.
-const sounds = [
-    {
-        id: 'intro',
-        src: lestPlaySrc,
-        autoPlay: true
-    },
-    {
-        id: 'nomatch',
-        src: utOhSrc
-    },
-    {
-        id: 'match',
-        src: wowsSrc
-    }
-];
-
 
 export default class Game extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.secondFlip = false;
         this.state = {
@@ -37,13 +15,13 @@ export default class Game extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount () {
         this.setState({ deck: this.props.deck });
     }
 
-    startGame() {
+    startGame () {
         if (!this.state.gameOn) {
-            // document.getElementById('intro').play();
+            document.getElementById('intro').play();
             this.setState({ showCover: false, gameOn: true });
         }
     }
@@ -101,15 +79,15 @@ export default class Game extends React.Component {
         // TODO: Introduce shuffle, etc., and use that and add some sort of "YOU WON!" animation.
         if (this.props.deck.length / 2 === this.state.foundCount) {
             const deck = this.props.shuffle(this.props.deck.map(card => _.pick(card, ['value', 'group'])));
-            this.setState({gameOn: false, showCover: true, foundCount: 0, deck});
+            this.setState({ gameOn: false, showCover: true, foundCount: 0, deck });
         }
     }
 
-    render() {
-        const {showCover, deck, gameOn} = this.state;
+    render () {
+        const { deck, gameOn, showCover } = this.state;
         return (
             <Fragment>
-                {sounds.map((sound, index) => <audio {...sound} key={'audio_' + index} />)}
+                {this.props.sounds.map((sound, index) => <audio {...sound} key={'audio_' + index} />)}
                 <div onClick={() => gameOn || this.startGame()}>
                     {
                         showCover ?
@@ -125,7 +103,7 @@ export default class Game extends React.Component {
                                     return <MemCard {...cardData}
                                         onClick={this.markFlip}
                                         id={idKey}
-                                        key={idKey} />
+                                        key={idKey} />;
                                 })}
                             </div>
                     }
@@ -136,5 +114,7 @@ export default class Game extends React.Component {
 
 
 Game.propTypes = {
-    deck: PropTypes.array
+    deck: PropTypes.array,
+    sounds: PropTypes.array,
+    shuffle: PropTypes.func
 };

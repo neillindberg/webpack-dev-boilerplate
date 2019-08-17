@@ -52,12 +52,16 @@ body, * {
     font-size: 5em;
     user-select: none;
     text-shadow: -1px 0 hotpink, 0 3px hotpink, 1px 0 hotpink, 0 -5px black;
+    display: flex;
+    align-items: center;
+    height: 100vh;
 }
 
 .game {
     display: flex;
     flex-wrap: wrap;
     width: 800px;
+    justify-content: center;
 }
 
 .card {

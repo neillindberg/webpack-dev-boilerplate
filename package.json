@@ -40,5 +40,5 @@
   },
   "author": "Neil G. Lindberg",
   "license": "ISC",
-  "private": true
+  "private": false
 }
